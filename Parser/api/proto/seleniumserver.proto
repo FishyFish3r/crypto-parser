@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package selserv;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "pkg/selserv";
+
+service SeleniumServer {
+    rpc GetHtml(HtmlArgs) returns (google.protobuf.Empty);
+}
+
+message HtmlArgs {
+    string Url = 1;
+}
