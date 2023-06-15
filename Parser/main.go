@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	// grpc...
 	selserv "github.com/FishyFish3r/crypto-parser/Parser/pkg/selserv"
+	"github.com/PuerkitoBio/goquery"
 	"google.golang.org/grpc"
 )
 
@@ -19,9 +21,30 @@ func checkError(err error) bool {
 }
 
 type Coin struct {
-	Name      string
-	PriceUSDT string
-	PriceRUB  string
+	Name     string
+	PriceKZT string
+	PriceRUB string
+}
+
+func parseBinancePrice(url string, c selserv.SeleniumServerClient) string {
+	resp, _ := c.GetHtml(context.Background(), &selserv.HtmlArgs{Url: url})
+
+	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(resp.GetHtml()))
+
+	price := doc.Find(".showPrice").Text()
+
+	return price
+}
+
+func parseCryptoruPrice(url string, c selserv.SeleniumServerClient) string {
+	resp, _ := c.GetHtml(context.Background(), &selserv.HtmlArgs{Url: url})
+
+	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(resp.GetHtml()))
+
+	price := doc.Find(".coin__price-value").Text()
+	price = strings.TrimSpace(price)
+
+	return price
 }
 
 func main() {
@@ -33,5 +56,15 @@ func main() {
 
 	client := selserv.NewSeleniumServerClient(conn)
 
-	client.GetHtml(context.Background(), &selserv.HtmlArgs{Url: "google.com"})
+	for {
+		var coin Coin
+
+		coin.Name = "USDT"
+
+		coin.PriceRUB = parseBinancePrice("https://www.binance.com/en/trade/USDT_RUB", client)
+		coin.PriceKZT = parseCryptoruPrice("https://crypto.ru/usdt-kzt/", client)
+
+		fmt.Printf("1 %s = \n\tRUB:%s\n\tKZT:%s\n", coin.Name, coin.PriceRUB, coin.PriceKZT)
+	}
+
 }

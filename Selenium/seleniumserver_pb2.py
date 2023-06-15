@@ -11,10 +11,9 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14seleniumserver.proto\x12\x07selserv\x1a\x1bgoogle/protobuf/empty.proto\"\x17\n\x08HtmlArgs\x12\x0b\n\x03Url\x18\x01 \x01(\t2F\n\x0eSeleniumServer\x12\x34\n\x07GetHtml\x12\x11.selserv.HtmlArgs\x1a\x16.google.protobuf.EmptyB2Z0github.com/FishyFish3r/crypto-parser/pkg/selservb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14seleniumserver.proto\x12\x07selserv\"\x17\n\x08HtmlArgs\x12\x0b\n\x03Url\x18\x01 \x01(\t\"\x1c\n\x0cHtmlResponse\x12\x0c\n\x04Html\x18\x01 \x01(\t2E\n\x0eSeleniumServer\x12\x33\n\x07GetHtml\x12\x11.selserv.HtmlArgs\x1a\x15.selserv.HtmlResponseB2Z0github.com/FishyFish3r/crypto-parser/pkg/selservb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'seleniumserver_pb2', globals())
@@ -22,8 +21,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z0github.com/FishyFish3r/crypto-parser/pkg/selserv'
-  _HTMLARGS._serialized_start=62
-  _HTMLARGS._serialized_end=85
-  _SELENIUMSERVER._serialized_start=87
+  _HTMLARGS._serialized_start=33
+  _HTMLARGS._serialized_end=56
+  _HTMLRESPONSE._serialized_start=58
+  _HTMLRESPONSE._serialized_end=86
+  _SELENIUMSERVER._serialized_start=88
   _SELENIUMSERVER._serialized_end=157
 # @@protoc_insertion_point(module_scope)

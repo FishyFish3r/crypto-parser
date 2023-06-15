@@ -2,7 +2,6 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import seleniumserver_pb2 as seleniumserver__pb2
 
 
@@ -18,7 +17,7 @@ class SeleniumServerStub(object):
         self.GetHtml = channel.unary_unary(
                 '/selserv.SeleniumServer/GetHtml',
                 request_serializer=seleniumserver__pb2.HtmlArgs.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                response_deserializer=seleniumserver__pb2.HtmlResponse.FromString,
                 )
 
 
@@ -37,7 +36,7 @@ def add_SeleniumServerServicer_to_server(servicer, server):
             'GetHtml': grpc.unary_unary_rpc_method_handler(
                     servicer.GetHtml,
                     request_deserializer=seleniumserver__pb2.HtmlArgs.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    response_serializer=seleniumserver__pb2.HtmlResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,6 +61,6 @@ class SeleniumServer(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/selserv.SeleniumServer/GetHtml',
             seleniumserver__pb2.HtmlArgs.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            seleniumserver__pb2.HtmlResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
