@@ -1,10 +1,12 @@
 package main
 
 import (
-	"bytes"
+	"context"
 	"fmt"
-	"io/ioutil"
-	"net/http"
+
+	// grpc...
+	selserv "github.com/FishyFish3r/crypto-parser/Parser/pkg/selserv"
+	"google.golang.org/grpc"
 )
 
 func checkError(err error) bool {
@@ -23,16 +25,13 @@ type Coin struct {
 }
 
 func main() {
-
-	data := []byte("https://www.binance.com/en/trade/USDT_RUB")
-
-	resp, err := http.Post("localhost:61137", "text/plain", bytes.NewBuffer(data))
+	conn, err := grpc.Dial(":61337", grpc.WithInsecure())
 
 	if !checkError(err) {
 		return
 	}
 
-	data, _ = ioutil.ReadAll(resp.Body)
+	client := selserv.NewSeleniumServerClient(conn)
 
-	fmt.Println(string(data))
+	client.GetHtml(context.Background(), &selserv.HtmlArgs{Url: "google.com"})
 }
