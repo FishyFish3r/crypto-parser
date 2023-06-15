@@ -4,7 +4,7 @@ package selserv;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "pkg/selserv";
+option go_package = "github.com/FishyFish3r/crypto-parser/pkg/selserv";
 
 service SeleniumServer {
     rpc GetHtml(HtmlArgs) returns (google.protobuf.Empty);
